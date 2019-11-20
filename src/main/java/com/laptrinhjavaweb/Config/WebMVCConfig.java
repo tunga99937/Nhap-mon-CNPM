@@ -41,17 +41,19 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/META-INF/Web/css/");
-		registry.addResourceHandler("/css/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/css/");
+		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/META-INF/Web/css/");
+//		registry.addResourceHandler("/css/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/css/");
 		
-//		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/META-INF/Web/js/");
-		registry.addResourceHandler("/js/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/js/");
+		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/META-INF/Web/js/");
+//		registry.addResourceHandler("/js/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/js/");
 		
 //		registry.addResourceHandler("/mail/**").addResourceLocations("classpath:/META-INF/Web/mail/");
 //		registry.addResourceHandler("/mail/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/mail/");
 		
-//		registry.addResourceHandler("/vendor/**").addResourceLocations("classpath:/META-INF/Web/vendor/");
-		registry.addResourceHandler("/vendor/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/vendor/");
+		registry.addResourceHandler("/vendor/**").addResourceLocations("classpath:/META-INF/Web/vendor/");
+//		registry.addResourceHandler("/vendor/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/vendor/");
+		
+		registry.addResourceHandler("/Login/**").addResourceLocations("classpath:/META-INF/Login/");
 	}
 	
 	@Bean public RegistrationBean siteMeshFilter() {

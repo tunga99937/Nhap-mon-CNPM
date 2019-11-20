@@ -13,12 +13,7 @@ public class HomeController {
 	@RequestMapping(value = {"/", "/home"}, method = { RequestMethod.GET })
 	public String index(final ModelMap model, final HttpServletRequest request, final HttpServletResponse response) {
 		System.out.println(request.getContextPath());
-		return "index";
-	}
-	
-	@RequestMapping(value = {"/Login"} , method = { RequestMethod.GET })
-	public String Login(final ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		return "/decorators/Login";
+		return "/index";
 	}
 	
 }
