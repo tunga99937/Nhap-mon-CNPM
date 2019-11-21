@@ -60,7 +60,7 @@
 							class="dropdown-item" href="404.html">404</a> <a
 							class="dropdown-item" href="pricing.html">Pricing Table</a>
 					</div></li>
-				<li class="nav-item"><a class="nav-link" href="/admin/login">Login</a>
+				<li class="nav-item"><a class="nav-link" href="/login">Login</a>
 				</li>
 			</ul>
 		</div>
