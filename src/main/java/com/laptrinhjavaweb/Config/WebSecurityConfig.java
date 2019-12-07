@@ -1,49 +1,50 @@
-package com.laptrinhjavaweb.Config;
+package com.laptrinhjavaweb.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	DataSource dataSource;
+
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
-//			.antMatchers("/**").hasAnyRole("ADMIN","USER")
-				.antMatchers("/**").permitAll().anyRequest().authenticated().and().logout().logoutUrl("/perform_logout") 																														// page
-				.logoutSuccessUrl("/home").invalidateHttpSession(true) // xoá hết dữ liệu trên seesion
-				.deleteCookies("JSESSIONID") // xoá hết dữ liệu trên cokies.
+		http.csrf().disable().authorizeRequests()
+				.antMatchers("/**")
 				.permitAll()
-
-				.and() // kết hợp với đi�?u kiện.
-
-				.formLogin() // thực hiện xác thực qua form(username và password)
-				.loginPage("/admin/login") // custom login page
-				.loginProcessingUrl("/peform_login") // the url to submit the username and password to
-				.defaultSuccessUrl("/admin/home", true) // the landing page after a successful login
-				.failureUrl("/admin/login?login_error=true") // the landing page after an unsuccessful login
+				.antMatchers("/admin/**").access("hasRole('ADMIN')")
+				.antMatchers("/login").access("hasRole('ADMIN') or 	hasRole('USER')")
+				.and().exceptionHandling().accessDeniedPage("/403")
+				.and().formLogin()//
+				// Submit URL của trang login
+				.loginProcessingUrl("/perform_login") // Submit URL
+				.loginPage("/login")
+				.defaultSuccessUrl("/home")
+				.failureUrl("/login?error=true")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				// Cấu hình cho Logout Page.
+				.and().logout()
+				.invalidateHttpSession(true)
+				.clearAuthentication(true)
+				.logoutUrl("/logout").logoutSuccessUrl("/Home")
 				.permitAll();
 	}
 
-	/**
-	 * 2 hàm này để sinh user và password
-	 */
-
-	@Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-          .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-          .and()
-          .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-          .and()
-          .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
-    }
 	/**
 	 * sử dụng thuật toán bcrypt để mã hóa mật khẩu
 	 * 
@@ -55,11 +56,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	/*
-	 * @Bean public UserDetailsService userDetailsService() {
-	 * 
-	 * @SuppressWarnings("deprecation") UserDetails user =
-	 * User.withDefaultPasswordEncoder().username("user").password("password").roles
-	 * ("USER") .build(); return new InMemoryUserDetailsManager(user); }
-	 */
+	@Autowired
+	UserDetailsService userDetailsService;
+
+	@Bean
+	public AuthenticationProvider authProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userDetailsService);
+		provider.setPasswordEncoder(new BCryptPasswordEncoder());
+		return provider;
+	}
+
 }

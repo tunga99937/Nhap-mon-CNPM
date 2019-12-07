@@ -1,4 +1,4 @@
-package com.laptrinhjavaweb.Config;
+package com.laptrinhjavaweb.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.RegistrationBean;
@@ -41,19 +41,23 @@ public class WebMVCConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/META-INF/Web/css/");
+		registry.addResourceHandler("/Web/**").addResourceLocations("classpath:/META-INF/Web/");
 //		registry.addResourceHandler("/css/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/css/");
 		
-		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/META-INF/Web/js/");
+		registry.addResourceHandler("/Image/**").addResourceLocations("classpath:/META-INF/Image/");
 //		registry.addResourceHandler("/js/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/js/");
 		
 //		registry.addResourceHandler("/mail/**").addResourceLocations("classpath:/META-INF/Web/mail/");
 //		registry.addResourceHandler("/mail/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/mail/");
 		
-		registry.addResourceHandler("/vendor/**").addResourceLocations("classpath:/META-INF/Web/vendor/");
+		registry.addResourceHandler("/Admin/**").addResourceLocations("classpath:/META-INF/Admin/");
 //		registry.addResourceHandler("/vendor/**").addResourceLocations("file:D:/ecipse-workspace/Project-I/src/main/resources/META-INF/Web/vendor/");
 		
 		registry.addResourceHandler("/Login/**").addResourceLocations("classpath:/META-INF/Login/");
+		
+		registry.addResourceHandler("/error/**").addResourceLocations("classpath:/META-INF/error/");
+		
+		registry.addResourceHandler("/source/**").addResourceLocations("classpath:/META-INF/source/");
 	}
 	
 	@Bean public RegistrationBean siteMeshFilter() {

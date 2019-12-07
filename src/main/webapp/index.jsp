@@ -5,6 +5,11 @@
 	position: sticky;
 	top: 100px;
 }
+div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
 </style>
 	<div id="demo" class="carousel slide" data-ride="carousel">
 
@@ -74,6 +79,8 @@
 
 							<p class="text-color-secondary">3.829.000</p>
 							<div class="progress progress-bar bg-warning" style="width: 70%"></div>
+							<br>
+							<a href="#" class="btn btn-primary">Buy</a>
 						</div>
 					</div>
 				</div>

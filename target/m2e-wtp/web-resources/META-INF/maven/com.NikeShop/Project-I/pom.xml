@@ -63,13 +63,33 @@
 		</dependency>
 		<!-- springboot - security -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+		<!-- spring jpa -->
+		<!-- Spring Boot configures Hibernate as the default JPA provider, so it’s 
+			no longer necessary to define the entityManagerFactory bean unless we want 
+			to customize it. Spring Boot can also auto-configure the dataSource bean, 
+			depending on the database we’re using. In the case of an in-memory database 
+			of type H2, HSQLDB and Apache Derby, Boot automatically configures the DataSource 
+			if the corresponding database dependency is present on the classpath. -->
+		<!-- Also in Spring Boot 1, the default connection pool was Tomcat, but 
+			with Spring Boot 2 it has been changed to HikariCP. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- Use MySQL Connector-J -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		
+		
 
 	</dependencies>
 	<build>
